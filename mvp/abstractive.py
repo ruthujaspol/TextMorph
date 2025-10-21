@@ -1,82 +1,42 @@
-import requests
-import json
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 class AbstractiveSummarizer:
-    def __init__(self, api_key):
-        self.api_key = api_key
-        self.summarize_url = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-        self.paraphrase_url = "https://api-inference.huggingface.co/models/Vamsi/T5_Paraphrase_Paws"
-        self.headers = {"Authorization": f"Bearer {api_key}"}
+    def __init__(self, api_key=None):
+        # You don’t need api_key for local models now
+        # Summarization model
+        self.summarize_model_name = "facebook/bart-large-cnn"
+        self.summarize_tokenizer = AutoTokenizer.from_pretrained(self.summarize_model_name)
+        self.summarize_model = AutoModelForSeq2SeqLM.from_pretrained(self.summarize_model_name)
+
+        # Paraphrasing model
+        self.paraphrase_model_name = "Vamsi/T5_Paraphrase_Paws"
+        self.paraphrase_tokenizer = AutoTokenizer.from_pretrained(self.paraphrase_model_name)
+        self.paraphrase_model = AutoModelForSeq2SeqLM.from_pretrained(self.paraphrase_model_name)
 
     def summarize(self, text, length='medium'):
-        """
-        Abstractive summarization using BART via Hugging Face API
-        """
         length_map = {
-            'short': {"max_length": 60, "min_length": 30},
-            'medium': {"max_length": 130, "min_length": 60},
-            'long': {"max_length": 200, "min_length": 130}
+            'short': 60,
+            'medium': 130,
+            'long': 200
         }
-
-        params = length_map.get(length, length_map['medium'])
-
-        payload = {
-            "inputs": text,
-            "parameters": {
-                **params,
-                "do_sample": False,
-                "early_stopping": True
-            }
-        }
-
-        try:
-            response = requests.post(
-                self.summarize_url,
-                headers=self.headers,
-                json=payload,
-                timeout=30
-            )
-
-            if response.status_code == 200:
-                result = response.json()
-                if isinstance(result, list) and len(result) > 0:
-                    return result[0].get('summary_text', 'No summary generated')
-                return str(result)
-            else:
-                return f"API Error: {response.status_code} - {response.text}"
-
-        except Exception as e:
-            return f"Error: {str(e)}"
+        inputs = self.summarize_tokenizer(text, return_tensors="pt", truncation=True)
+        summary_ids = self.summarize_model.generate(
+            **inputs,
+            max_length=length_map.get(length, 130),
+            min_length=30,
+            early_stopping=True
+        )
+        return self.summarize_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
     def paraphrase(self, text):
-        """
-        Paraphrase text using T5 via Hugging Face API
-        """
-        payload = {
-            "inputs": f"paraphrase: {text}",
-            "parameters": {
-                "max_length": 256,
-                "num_beams": 5,
-                "num_return_sequences": 1,
-                "temperature": 1.5
-            }
-        }
-
-        try:
-            response = requests.post(
-                self.paraphrase_url,
-                headers=self.headers,
-                json=payload,
-                timeout=30
-            )
-
-            if response.status_code == 200:
-                result = response.json()
-                if isinstance(result, list) and len(result) > 0:
-                    return result[0].get('generated_text', 'No paraphrase generated')
-                return str(result)
-            else:
-                return f"API Error: {response.status_code} - {response.text}"
-
-        except Exception as e:
-            return f"Error: {str(e)}"
+        # Add prefix as T5 expects
+        input_text = "paraphrase: " + text
+        inputs = self.paraphrase_tokenizer.encode(input_text, return_tensors="pt", max_length=256, truncation=True)
+        outputs = self.paraphrase_model.generate(
+            inputs,
+            max_length=256,
+            num_beams=5,
+            num_return_sequences=1,
+            temperature=1.5
+        )
+        return self.paraphrase_tokenizer.decode(outputs[0], skip_special_tokens=True)
