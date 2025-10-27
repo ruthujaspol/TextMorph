@@ -272,24 +272,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### 🌟 If you found this project helpful, please give it a star! ⭐
 
-**Created with ❤️ by Jeev | Powered by AI**
+**Created with ❤️ by Ruthuja | Powered by AI**
 
 [Report Bug](https://github.com/yourusername/text-morph/issues) · [Request Feature](https://github.com/yourusername/text-morph/issues)
-
-</div>
-
----
-=======
-Create a virtual environment:
-
-python -m venv venv 
-
-
-Here, venv is the folder name (you can use any name).
-
-Activate the virtual environment:
-
-On Windows:
-
-venv\Scripts\activate
->>>>>>> ed02a9d4ed59cc987f7c9c16bf3dce8d55b7208b
