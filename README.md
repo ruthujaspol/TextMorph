@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🔮 Text Morph - Advanced Text Summarization and Paraphrasing
 
 <div align="center">
@@ -279,3 +280,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 </div>
 
 ---
+=======
+Create a virtual environment:
+
+python -m venv venv 
+
+
+Here, venv is the folder name (you can use any name).
+
+Activate the virtual environment:
+
+On Windows:
+
+venv\Scripts\activate
+>>>>>>> ed02a9d4ed59cc987f7c9c16bf3dce8d55b7208b
