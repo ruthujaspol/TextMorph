@@ -19,7 +19,7 @@ env_path = src_path / ".env"
 load_dotenv(dotenv_path=env_path)
 
 # ✅ Add this line right after loading .env
-st.write("Loaded HUGGINGFACE_API_KEY:", os.getenv('HUGGINGFACE_API_KEY'))
+st.write("Loaded HUGGINGFACE_API_KEY:", os.getenv('HF_API_KEY'))
 
 # Initialize session state for text area
 if 'input_text' not in st.session_state:
@@ -40,13 +40,13 @@ st.set_page_config(
 )
 
 
-# Updated Theme (new gradient + accent colors)
+# Updated Theme
 st.markdown("""
 <style>
     :root {
         --primary-color: #00aaff;
         --secondary-color: #00c6ff;
-        --accent-color: #ff8c00;
+        --accent-color: #ff4d4d;
     }
 
 
@@ -55,7 +55,7 @@ st.markdown("""
 
 
     .main-header {
-        background: linear-gradient(135deg, #00aaff 0%, #0072ff 100%);
+        background: linear-gradient(135deg, #7b2ff7 0%, #1a73e8 50%, #00c6ff 100%);
         padding: 2rem;
         border-radius: 15px;
         margin-bottom: 2rem;
@@ -77,7 +77,7 @@ st.markdown("""
 
 
     .feature-card {
-        background: linear-gradient(135deg, #eef2f3 0%, #d9e2ec 100%);
+        background: linear-gradient(135deg, #f8f9fb 0%, #e3e8f0 100%);
         padding: 1.4rem;
         border-radius: 15px;
         margin: 1rem 0;
@@ -87,14 +87,14 @@ st.markdown("""
     .feature-card:hover { transform: translateY(-5px); }
 
 
-    .feature-icon { font-size: 2.3rem; margin-bottom: 0.6rem; }
+    .feature-icon { font-size: 2.3rem; margin-bottom: 0.6rem; color: #7b2ff7; }
     .feature-title { font-size: 1.25rem; font-weight: 700; color: #1f2937; margin-bottom: 0.4rem; }
     .feature-desc { color: #374151; font-size: 0.95rem; }
 
 
     .stButton > button {
         border-radius: 10px;
-        background: linear-gradient(90deg, #00aaff 0%, #00c6ff 100%);
+        background: linear-gradient(90deg, #7b2ff7 0%, #00c6ff 100%);
         color: white;
         font-weight: 600;
         border: none;
@@ -104,12 +104,12 @@ st.markdown("""
     }
     .stButton > button:hover {
         transform: scale(1.03);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     }
 
 
     .info-box {
-        background: linear-gradient(135deg, #00aaff 0%, #0072ff 100%);
+        background: linear-gradient(135deg, #7b2ff7 0%, #1a73e8 50%, #00c6ff 100%);
         color: white;
         padding: 1.5rem;
         border-radius: 12px;
@@ -130,7 +130,7 @@ st.markdown("""
     .stats-card {
         background: #ffffff;
         padding: 1.3rem;
-        border-left: 5px solid #00aaff;
+        border-left: 5px solid #7b2ff7;
         border-radius: 10px;
         box-shadow: 0 3px 6px rgba(0,0,0,0.05);
         margin: 1rem 0;
@@ -159,7 +159,7 @@ def save_to_downloads(content, filename):
 
 
 # Get API key from environment
-HF_API_KEY = os.getenv('HUGGINGFACE_API_KEY')
+HF_API_KEY = os.getenv('HF_API_KEY')
 
 if not HF_API_KEY:
     st.markdown("""
@@ -532,6 +532,3 @@ st.markdown("""
     <p style='margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.9;'>Powered by Hugging Face Inference API • No Local Models Required</p>
 </div>
 """, unsafe_allow_html=True)
-
-
-
