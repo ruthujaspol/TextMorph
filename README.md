@@ -12,12 +12,9 @@
 
 </div>
 
-## 📸 Screenshot
+## 🎥 Demo Video
 
-Here is a preview of the application's user interface:
-
-![Text Morph Interface](assets/screenshot1.png)
-![Text Morph Interface](assets/screenshot2.png)
+[![Watch the demo](assets/demo-thumbnail.png)](assets/demo.mp4)
 
 ## 📋 Table of Contents
 
