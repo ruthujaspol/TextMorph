@@ -6,20 +6,24 @@ class AbstractiveSummarizer:
     
     def __init__(self, api_key): 
         self.api_key = api_key 
-        self.api_url = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn" 
+        
+        # ✅ FIX 1: Updated to new Hugging Face router endpoint
+        self.api_url = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-cnn"
+        
         self.headers = {"Authorization": f"Bearer {api_key}"}
 
-    def summarize(self, text, length='medium'):
+    def summarize(self, text, length='medium', max_len=None):
         """
         Generate abstractive summary from text.
         
         Args:
             text (str): Input text to summarize
             length (str): 'short', 'medium', or 'long'
-            
+            max_len (int, optional): Override for custom summary length
         Returns:
             str: Generated summary
         """
+        # ✅ FIX 2: Added max_len override for fine control from pipeline
         length_map = {
             'short': {"max_length": 60, "min_length": 30},
             'medium': {"max_length": 130, "min_length": 60},
@@ -27,6 +31,9 @@ class AbstractiveSummarizer:
         }
         
         params = length_map.get(length, length_map['medium'])
+        if max_len:
+            params["max_length"] = max_len  # override if passed
+        
         payload = {
             "inputs": text,
             "parameters": {

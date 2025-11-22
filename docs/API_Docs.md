@@ -548,5 +548,5 @@ test_groq_api("your_api_key_here")
 ---
 
 **Last Updated**: October 2025  
-**Maintained By**: Jeevan HS 
+**Maintained By**: Ruthuja Sanjay Pol
 **License**: MIT

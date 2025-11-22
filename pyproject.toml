@@ -7,11 +7,7 @@ name = "text_summarization_project"
 version = "0.1.0"
 description = "Text summarization and paraphrasing project"
 authors = [
-<<<<<<< HEAD
-    { name = "Jeevan", email = "jeevang1405@gmail.com" }
-=======
-    { name = "Thangarasu", email = "thangamani1128@gmail.com" }
->>>>>>> ed02a9d4ed59cc987f7c9c16bf3dce8d55b7208b
+    { name = "Ruthuja Sanjay Pol", email = "ruthujaspol@gmail.com" }
 ]
 dependencies = [
     "transformers",
@@ -19,15 +15,10 @@ dependencies = [
     "nltk",
     "networkx",
     "pyyaml",
-<<<<<<< HEAD
     "numpy",
     "sentencepiece",
     "streamlit",
     "protobuf",
     "python-dotenv",
     "requests"
-=======
-    "streamlit",
-    "python-dotenv"
->>>>>>> ed02a9d4ed59cc987f7c9c16bf3dce8d55b7208b
 ]

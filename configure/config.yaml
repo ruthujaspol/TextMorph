@@ -6,9 +6,9 @@ app:
   name: "Text Morph"
   version: "1.0.0"
   description: "AI-Powered Text Summarization & Paraphrasing Platform"
-  author: "Jeev"
+  author: "Ruthuja Sanjay Pol"
   page_title: "Text Morph - AI Text Processing"
-  page_icon: "🔮"
+  page_icon: "📑"
   layout: "wide"
   initial_sidebar_state: "expanded"
 

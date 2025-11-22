@@ -3,9 +3,13 @@ import sys
 from pathlib import Path
 
 
+
+
 # Add src folder to Python path
 src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
+
+
 
 
 # Now import from src folder
@@ -14,12 +18,16 @@ import os
 from dotenv import load_dotenv
 
 
+
+
 # Load environment variables from src folder
 env_path = src_path / ".env"
 load_dotenv(dotenv_path=env_path)
 
+
 # ✅ Add this line right after loading .env
-st.write("Loaded HUGGINGFACE_API_KEY:", os.getenv('HF_API_KEY'))
+#st.write("Loaded HUGGINGFACE_API_KEY:", os.getenv('HF_API_KEY'))
+
 
 # Initialize session state for text area
 if 'input_text' not in st.session_state:
@@ -28,6 +36,8 @@ if 'output_text' not in st.session_state:
     st.session_state.output_text = ""
 if 'output_type' not in st.session_state:
     st.session_state.output_type = ""
+
+
 
 
 # Page config
@@ -40,13 +50,21 @@ st.set_page_config(
 )
 
 
-# Updated Theme
+# Modern theme
 st.markdown("""
 <style>
-    :root {
-        --primary-color: #00aaff;
-        --secondary-color: #00c6ff;
-        --accent-color: #ff4d4d;
+
+
+    /* GLOBAL PREMIUM UI */
+    html, body {
+        background-color: #f8f9fb !important;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    /* Reduce unnecessary whitespace */
+    .block-container {
+        padding-top: 0.5rem !important;
     }
 
 
@@ -54,87 +72,115 @@ st.markdown("""
     footer {visibility: hidden;}
 
 
+
+
+    /* HEADER (Reduced height + No avatar) */
     .main-header {
-        background: linear-gradient(135deg, #7b2ff7 0%, #1a73e8 50%, #00c6ff 100%);
-        padding: 2rem;
-        border-radius: 15px;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        padding: 0.8rem 0.5rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
     }
+
+
     .main-header h1 {
-        color: white;
-        font-size: 3rem;
-        font-weight: 800;
+        color: #1E1E1E;
+        font-size: 28px;
+        font-weight: 700;
         margin: 0;
-        letter-spacing: 0.5px;
-        text-shadow: 1px 1px 6px rgba(0,0,0,0.25);
     }
+
+
     .main-header p {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.1rem;
-        margin: 0.5rem 0 0 0;
+        color: #666;
+        font-size: 13px;
+        margin-top: 2px;
     }
 
 
+
+
+    /* FEATURE CARDS */
     .feature-card {
-        background: linear-gradient(135deg, #f8f9fb 0%, #e3e8f0 100%);
-        padding: 1.4rem;
-        border-radius: 15px;
-        margin: 1rem 0;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #f8f9fb 0%, #eceff4 100%);
+        padding: 1.2rem;
+        border-radius: 14px;
+        margin: 0.8rem 0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        transition: all 0.2s ease;
     }
-    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card:hover { transform: translateY(-4px); }
 
 
-    .feature-icon { font-size: 2.3rem; margin-bottom: 0.6rem; color: #7b2ff7; }
-    .feature-title { font-size: 1.25rem; font-weight: 700; color: #1f2937; margin-bottom: 0.4rem; }
-    .feature-desc { color: #374151; font-size: 0.95rem; }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.4rem; color: #7b2ff7; }
+    .feature-title { font-size: 1.15rem; font-weight: 700; color: #1f2937; }
+    .feature-desc { color: #374151; font-size: 0.9rem; }
 
 
+
+
+    /* BUTTONS */
     .stButton > button {
-        border-radius: 10px;
+        border-radius: 9px;
         background: linear-gradient(90deg, #7b2ff7 0%, #00c6ff 100%);
         color: white;
         font-weight: 600;
         border: none;
-        padding: 0.75rem 2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        padding: 0.55rem 1rem;
+        transition: all 0.25s ease;
+        font-size: 14px;
     }
     .stButton > button:hover {
         transform: scale(1.03);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.15);
     }
 
 
+
+
+    /* INFO BOX */
     .info-box {
         background: linear-gradient(135deg, #7b2ff7 0%, #1a73e8 50%, #00c6ff 100%);
         color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
+        padding: 1.2rem;
+        border-radius: 10px;
         margin: 1rem 0;
-        box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
 
+
+
+    /* OUTPUT CONTAINER */
     .output-container {
-        background: #f1f5f9;
-        padding: 2rem;
+        background: #f2f5f8;
+        padding: 1.5rem;
         border-radius: 15px;
         box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-        min-height: 400px;
+        min-height: 360px;
     }
 
 
+
+
+    /* STATS CARDS */
     .stats-card {
         background: #ffffff;
-        padding: 1.3rem;
-        border-left: 5px solid #7b2ff7;
+        padding: 1.1rem;
+        border-left: 4px solid #7b2ff7;
         border-radius: 10px;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-        margin: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin: 0.8rem 0;
     }
+
+
+    /* Textareas */
+    textarea, .stTextArea textarea {
+        border-radius: 12px !important;
+        border: 1px solid #d8dee9 !important;
+        background: #ffffff !important;
+    }
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -158,8 +204,12 @@ def save_to_downloads(content, filename):
         return None
 
 
+
+
 # Get API key from environment
 HF_API_KEY = os.getenv('HF_API_KEY')
+print("🔑 HF_API_KEY:", HF_API_KEY)
+
 
 if not HF_API_KEY:
     st.markdown("""
@@ -171,10 +221,13 @@ if not HF_API_KEY:
     """, unsafe_allow_html=True)
     st.stop()
 
+
 # Initialize pipeline
 @st.cache_resource
 def load_pipeline():
     return SummarizationPipeline(HF_API_KEY)
+
+
 
 
 try:
@@ -182,14 +235,14 @@ try:
 except Exception as e:
     st.error(f"❌ Failed to initialize pipeline: {str(e)}")
     st.stop()
-
-
+   
 # Header
 st.markdown("""
 <div class="main-header">
-    <h1>📑 Text Morph</h1>
-    <p>AI-Powered Text Summarization & Paraphrasing Platform</p>
+    <h1>📑TextMorph</h1>
+    <p>Smart Summarizer & Paraphraser • Optimized NLP Powered by Transformers</p>
 </div>
+<hr>
 """, unsafe_allow_html=True)
 
 
@@ -253,8 +306,12 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 
+
+
 # Main content area
 tab1, tab2, tab3 = st.tabs(["🚀 Process Text", "📚 Examples", "ℹ️ How It Works"])
+
+
 
 
 with tab1:
@@ -270,6 +327,36 @@ with tab1:
             label_visibility="collapsed",
             key="text_input_area"
         )
+
+        st.markdown("### 📁 Upload Files (.txt, .pdf, .docx)")
+
+        uploaded_file = st.file_uploader(
+            "Upload a document to summarize or paraphrase",
+            type=["txt", "pdf", "docx"],
+            accept_multiple_files=False
+        )
+
+        if uploaded_file:
+            file_name = uploaded_file.name.lower()
+
+            if file_name.endswith(".txt"):
+                st.session_state.input_text = uploaded_file.read().decode("utf-8")
+
+            elif file_name.endswith(".pdf"):
+                from PyPDF2 import PdfReader
+                reader = PdfReader(uploaded_file)
+                text = ""
+                for page in reader.pages:
+                    text += page.extract_text() + "\n"
+                st.session_state.input_text = text
+
+            elif file_name.endswith(".docx"):
+                import docx
+                doc = docx.Document(uploaded_file)
+                text = "\n".join([para.text for para in doc.paragraphs])
+                st.session_state.input_text = text
+
+            st.success(f"📄 Loaded: {uploaded_file.name}")
        
         # Update session state
         st.session_state.input_text = input_text
@@ -332,13 +419,22 @@ with tab1:
                             st.metric("Reduced", f"{reduction}%")
                        
                         # Download button
-                        if st.button("⬇️ Download Summary", use_container_width=True, key="download_summary_btn"):
-                            filename = "text_morph_summary.txt"
-                            file_path = save_to_downloads(summary, filename)
-                            if file_path:
-                                st.success(f"✅ File saved to: {file_path}")
-                            else:
-                                st.error("❌ Failed to save file")
+                        #if st.button("⬇️ Download Summary", use_container_width=True, key="download_summary_btn"):
+                         #   filename = "text_morph_summary.txt"
+                          #  file_path = save_to_downloads(summary, filename)
+                           # if file_path:
+                            #    st.success(f"✅ File saved to: {file_path}")
+                            #else:
+                             #   st.error("❌ Failed to save file")
+                        st.download_button(
+                            label="⬇️ Download Summary",
+                            data=summary,
+                            file_name="text_morph_summary.txt",
+                            mime="text/plain",
+                            use_container_width=True
+                        )
+
+
                                
                 except Exception as e:
                     st.error(f"❌ Error: {str(e)}")
@@ -368,13 +464,20 @@ with tab1:
                             st.metric("Original", original_words)
                        
                         # Download button
-                        if st.button("⬇️ Download Paraphrase", use_container_width=True, key="download_paraphrase_btn"):
-                            filename = "text_morph_paraphrase.txt"
-                            file_path = save_to_downloads(paraphrased, filename)
-                            if file_path:
-                                st.success(f"✅ File saved to: {file_path}")
-                            else:
-                                st.error("❌ Failed to save file")
+                        #if st.button("⬇️ Download Paraphrase", use_container_width=True, key="download_paraphrase_btn"):
+                         #   filename = "text_morph_paraphrase.txt"
+                          #  file_path = save_to_downloads(paraphrased, filename)
+                           # if file_path:
+                            #    st.success(f"✅ File saved to: {file_path}")
+                            #else:
+                             #   st.error("❌ Failed to save file")
+                        st.download_button(
+                            label="⬇️ Download Paraphrase",
+                            data=paraphrased,
+                            file_name="text_morph_paraphrase.txt",
+                            mime="text/plain",
+                            use_container_width=True
+                        )
                                
                 except Exception as e:
                     st.error(f"❌ Error: {str(e)}")
@@ -398,6 +501,8 @@ with tab1:
                 </div>
             </div>
             """, unsafe_allow_html=True)
+
+
 
 
 with tab2:
@@ -454,6 +559,8 @@ with tab2:
             <div class='feature-desc'>Summarize reports, proposals, and meeting notes efficiently.</div>
         </div>
         """, unsafe_allow_html=True)
+
+
 
 
 with tab3:
@@ -522,6 +629,8 @@ with tab3:
             </ul>
         </div>
         """, unsafe_allow_html=True)
+
+
 
 
 # Footer

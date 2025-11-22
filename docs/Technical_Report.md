@@ -4,7 +4,7 @@
 
 **Project Name**: Text Morph - AI Text Processing Platform  
 **Version**: 1.0.0  
-**Author**: Jeevan HS  
+**Author**: Ruthuja Sanjay Pol
 **Date**: October 2025  
 **Status**: Production Ready
 
@@ -1187,8 +1187,8 @@ limits:
 
 **Document Version**: 1.0  
 **Last Updated**: October 22, 2025  
-**Author**: Jeevan HS
-**Contact**: jeevang1405@gmail.com
+**Author**: Ruthuja Sanjay Pol
+**Contact**: ruthujaspol@gmail.com
 **License**: MIT
 
 ---

@@ -272,3 +272,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Created with ❤️ by Ruthuja | Powered by AI**
 
 [Report Bug](https://github.com/yourusername/text-morph/issues) · [Request Feature](https://github.com/yourusername/text-morph/issues)
+
+</div>
+
+---

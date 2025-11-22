@@ -5,7 +5,7 @@ class ExtractiveSummarizer:
     
     def __init__(self, api_key):
         self.api_key = api_key
-        self.api_url = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+        self.api_url = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-cnn"
         self.headers = {"Authorization": f"Bearer {api_key}"}
 
     def summarize(self, text, length='medium'):

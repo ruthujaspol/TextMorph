@@ -38,6 +38,15 @@ class SummarizationPipeline:
     def summarize(self, text, method="abstractive", length="medium"):
         if not text or not text.strip():
             return "⚠️ No text provided."
+
+        # ✅ Length control logic added here
+        if length.lower() == "short":
+            max_len = 80
+        elif length.lower() == "medium":
+            max_len = 150
+        else:
+            max_len = 300
+
         try:
             if method == "extractive":
                 if self.extractive is None:
@@ -46,7 +55,8 @@ class SummarizationPipeline:
             else:
                 if self.abstractive is None:
                     return "❌ Abstractive Summarizer unavailable."
-                return self.abstractive.summarize(text, length)
+                # ✅ Pass length control to abstractive model
+                return self.abstractive.summarize(text, max_len=max_len)
         except Exception as e:
             return f"❌ Error: {e}"
 
